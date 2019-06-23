@@ -12,8 +12,9 @@ public class ArtistMapper extends Mapper<LongWritable, Text, Text, IntWritable> 
         String[] rowData = row.split(",");
 
         if(rowData[1] != null){
-           String artistName = rowData[1].replaceAll(" ","_");
-           context.write(new Text(artistName), new IntWritable(1));
+           String artistName = rowData[1].replaceAll("\"","");
+           String outputKey = artistName.replaceAll(" ","_");
+           context.write(new Text(outputKey), new IntWritable(1));
         }
     }
 }
